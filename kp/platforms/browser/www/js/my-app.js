@@ -7,8 +7,6 @@ var myApp = new Framework7({
 // If we need to use custom DOM library, let's save it to $$ variable:
 var $$ = Dom7;
 var directory= 'http://localhost/kp/server/projectkp.php';
-//var directory='http://192.168.100.7/goblok.php';
-//var directory='http://192.168.100.7/projectkp.php';
 //var directory='http://projectkpgpb.jux.in/projectkpbuatServer.php'; //tmpat php e
 
 // Add view
@@ -147,28 +145,27 @@ myApp.onPageInit('index', function (page) {
     $$('#refleksiMiniSide').html(judulModul[9]);
 
     $$('#menuAwal').on('click',function(){
-    mainView.router.loadPage("menu.html");
-    myApp.closePanel();
+        mainView.router.loadPage("menu.html");
+        myApp.closePanel();
     });
 
     $$('#myBigDreamSide').on('click',function(){
-    mainView.router.loadPage("mybigdream.html");
-    myApp.closePanel();
+        mainView.router.loadPage("mybigdream.html");
+        myApp.closePanel();
     });
 
     $$('#myLifeListSide').on('click',function(){
-    if(JSON.parse(localStorage.getItem("jawabanMyBigDream"))){
-        mainView.router.loadPage("mylifelist.html");
-        myApp.closePanel();
-    }
-    else
-        myApp.alert("Isi My Big Dream Terlebih Dahulu","Error");
-        
+        if(JSON.parse(localStorage.getItem("jawabanMyBigDream"))){
+            mainView.router.loadPage("mylifelist.html");
+            myApp.closePanel();
+        }
+        else
+            myApp.alert("Isi My Big Dream Terlebih Dahulu","Error");
     });
 
     $$('#outdoorSide').on('click',function(){
-    mainView.router.loadPage("outdoor.html");
-    myApp.closePanel();
+        mainView.router.loadPage("outdoor.html");
+        myApp.closePanel();
     });
 
     // $$('#akuDanKelompokku').on('click',function(){
@@ -176,50 +173,44 @@ myApp.onPageInit('index', function (page) {
     // });
 
     $$('#manajemenEmosiSide').on('click',function(){
-    mainView.router.loadPage("manajemenEmosi.html");
-    myApp.closePanel();
+        mainView.router.loadPage("manajemenEmosi.html");
+        myApp.closePanel();
     });
 
     $$('#manajemenEmosi2Side').on('click',function(){
-    mainView.router.loadPage("manajemenEmosi2.html");
-    myApp.closePanel();
+        mainView.router.loadPage("manajemenEmosi2.html");
+        myApp.closePanel();
     });
 
     $$('#actionPlanSide').on('click',function(){
-
-    if(JSON.parse(localStorage.getItem("jawabanLifelist"))){
-        mainView.router.loadPage("formActionPlan.html");
-        myApp.closePanel();
-    }
-    else
-        myApp.alert("Isi My Life List Terlebih Dahulu","Error");
-    
+        if(JSON.parse(localStorage.getItem("jawabanLifelist"))){
+            mainView.router.loadPage("formActionPlan.html");
+            myApp.closePanel();
+        }
+        else
+            myApp.alert("Isi My Life List Terlebih Dahulu","Error");
     });
 
     $$('#fishboneSide').on('click',function(){
-        //myApp.alert("Untuk Sementara Fitur Ini Belum Tersedia", "Coming Soon");
-    mainView.router.loadPage("fishbone.html");
-    myApp.closePanel();
+        mainView.router.loadPage("fishbone.html");
+        myApp.closePanel();
     });
 
     $$('#kisahEntongSide').on('click',function(){
-    mainView.router.loadPage("kisahEntong.html");
-    myApp.closePanel();
+        mainView.router.loadPage("kisahEntong.html");
+        myApp.closePanel();
     });
 
     $$('#lessonLearnedSide').on('click',function(){
-    mainView.router.loadPage("lessonLearned.html");
-    myApp.closePanel();
+        mainView.router.loadPage("lessonLearned.html");
+        myApp.closePanel();
     });
 
     $$('#refleksiMiniSide').on('click',function(){
-    mainView.router.loadPage("refleksiMini.html");
-    myApp.closePanel();
+        mainView.router.loadPage("refleksiMini.html");
+        myApp.closePanel();
     });
 
-    $$('#teeest').on('click',function(){
-        myApp.show
-    });
 
     if(page='index'){
         if(JSON.parse(localStorage.getItem("username"))&&JSON.parse(localStorage.getItem("jabatan")))
@@ -227,8 +218,7 @@ myApp.onPageInit('index', function (page) {
             if(JSON.parse(localStorage.getItem("jabatan"))=='fasilitator')
                 mainView.router.loadPage('pilihGelombangFasilitator.html');
             else if(JSON.parse(localStorage.getItem("jabatan"))=='mahasiswa')
-                mainView.router.loadPage('menu.html');
-            
+                mainView.router.loadPage('menu.html');            
         }
     }
     $$('#uploadJawaban').on('click',function(){
@@ -248,13 +238,13 @@ myApp.onPageInit('index', function (page) {
     });
 
     $$('#logout').on('click',function(){
-            myApp.confirm('Logout Menyebabkan Seluruh Hasil Pekerjaan Pada HP Hilang', 'Sudah Upload Belum?', function () {
-                myApp.confirm('Logout = Menghapus Seluruh Hasil Pekerjaan Pada Memory Internal dan Keluar Aplikasi', 'Sudah Sangat Yakin?', function () {
+        myApp.confirm('Logout Menyebabkan Seluruh Hasil Pekerjaan Pada HP Hilang', 'Sudah Upload Belum?', function () {
+            myApp.confirm('Logout = Menghapus Seluruh Hasil Pekerjaan Pada Memory Internal dan Keluar Aplikasi', 'Sudah Sangat Yakin?', function () {
                 hapusLocalAll();
                 myApp.closePanel();
                 mainView.router.back({url: 'index.html',force: true,ignoreCache: true});
             });
-            });
+        });
     });
 
     $$('#btnMasuk').on('click',function(){
@@ -329,22 +319,15 @@ myApp.onPageInit('index', function (page) {
                 else
                 {
                     myApp.alert("Dfail eval","Error");
-                }
-                
+                } 
             });
-            
         }
-    });// --------------------INSERT ADMIN--------------------------
-
+    });
 }).trigger();
 
-myApp.onPageBack('menu',function(asd){
-    
-    navigator.app.exitApp();
-})
+
 
 myApp.onPageBack('hehePage',function(asd){
-    
     deleteOtepe();
     //hapusLocalAll();
 })
@@ -387,35 +370,31 @@ function timerDelete() {
 
 myApp.onPageInit('menu', function (page) {
 
+    myApp.showNavbar($$('.navbar'));
     var mySwiper1 = myApp.swiper('.swiper-container', {
               pagination:'.swiper-pagination',
               paginationHide: false,
               autoplay:4000,
               spaceBetween: 50
                });
-    /*var mySwiperVertical = myApp.swiper('.swiper-vertical', {
-                          pagination:'.swiper-pagination',
-                          direction: 'vertical'
-                        });*/
     $$.post(directory,{opsi:"ambilPengumuman2"},function(data){
             //var gambar=JSON.parse(data);
-            var gambar="";
-            
-            if(gambar==""){
-                $$('.swiper-wrapper').html("<div style=text-align:center;><b><font size=5>Tidak Ada Pengumuman Terbaru:</font></b></div><br/><div style=text-align:center;>-</div><br/>")
-            }
-            for(var i=0;i<gambar.length;i++)
-            {
-                var gambarku="<img src="+gambar[i]+" style=width:100%; height:50%;>";
-                /*if(gambar!=""){
-                    $$('.swiper-wrapper').append("<div class=swiper-slide>"+gambarku+"</div>")
-                }*/
-                var testSlide="<div class=swiper-slide>"+gambarku+"</div>";
-                mySwiper1.appendSlide(testSlide);
-                // myApp.alert(mySwiper1.previousIndex);
-                
-            }
-        });
+        var gambar="";
+        
+        if(gambar=="")
+        {
+            $$('.swiper-wrapper').html("<div style=text-align:center; width:100%;><b><font size=5>Tidak Ada Pengumuman </font></b></div>")
+        }
+        for(var i=0;i<gambar.length;i++)
+        {
+            var gambarku="<img src="+gambar[i]+" style=width:100%; height:50%;>";
+            /*if(gambar!=""){
+                $$('.swiper-wrapper').append("<div class=swiper-slide>"+gambarku+"</div>")
+            }*/
+            var testSlide="<div class=swiper-slide>"+gambarku+"</div>";
+            mySwiper1.appendSlide(testSlide);
+        }
+    });
     
     if(JSON.parse(localStorage.getItem("username")))
     {
@@ -493,40 +472,31 @@ myApp.onPageInit('menu', function (page) {
     mainView.router.loadPage("pilihBigDream.html");
     });
 
-    /*$$('#myLifeList').on('click',function(){
-    mainView.router.loadPage("mylifelist.html");
-    });*/
-
-     $$('#kisahEntongPilih').on('click',function(){
-    mainView.router.loadPage("pilihEntong.html");
+    $$('#kisahEntongPilih').on('click',function(){
+        mainView.router.loadPage("pilihEntong.html");
     });
 
-       $$('#manajemenEmosiPilih').on('click',function(){
-    mainView.router.loadPage("pilihManajemenEmosi.html");
+    $$('#manajemenEmosiPilih').on('click',function(){
+        mainView.router.loadPage("pilihManajemenEmosi.html");
     });
 
-
-         $$('#refleksiMini').on('click',function(){
-    mainView.router.loadPage("refleksiMini.html");
+    $$('#refleksiMini').on('click',function(){
+        mainView.router.loadPage("refleksiMini.html");
     });
-
-          /*$$('#actionPlan').on('click',function(){
-    mainView.router.loadPage("formActionPlan.html");
-    });*/
 
     $$('#fishbone').on('click',function(){
         /*myApp.alert("Untuk Sementara Fitur Ini Belum Tersedia", "Coming Soon");
         mainView.router.back({url: 'menu.html',force: true,ignoreCache: true});*/
-    mainView.router.loadPage("fishbone.html");
+        mainView.router.loadPage("fishbone.html");
     });
 
-   $$('#outdoor').on('click',function(){
-    mainView.router.loadPage("outdoor.html");
+    $$('#outdoor').on('click',function(){
+        mainView.router.loadPage("outdoor.html");
     });
 
-   $$('#tempatTendaBis').html(nama_mhs+"<br/>Tenda: "+tenda+"<br/>Bus: "+bus+"<br/>Nama Kelompok: "+nama_kelompok);
-   $$('#fotoMahasiswa').html('<img src=https://my.ubaya.ac.id/img/mhs/160415093_m.jpg>');
-   // $$('#fotoMahasiswa').html('<img src=https://my.ubaya.ac.id/img/mhs/'+nrp+'_m.jpg>');
+    $$('#fotoMahasiswa').html('<img src=https://my.ubaya.ac.id/img/mhs/160415093_m.jpg>');
+    $$('#tempatTendaBis').html(nama_mhs+"<br/>Tenda: "+tenda+"<br/>Bus: "+bus+"<br/>Nama Kelompok: "+nama_kelompok);
+   
 
     if(jawabanActionPlanForm!=""){
     for(var i=0;i<jawabanActionPlanForm.length;i++)
@@ -586,11 +556,14 @@ myApp.onPageInit('menu', function (page) {
 
 $$(document).on('deviceready', function() {
     console.log("Device is ready!");
+    myApp.onPageBack('menu',function(asd){
+     console.log("heahahwe");
+     navigator.app.exitApp();
+    });
 });
 
 
 myApp.onPageInit('pilihBigDream', function (page) {
-    
     $$('#masukMyBigDream').on('click', function () {
        mainView.router.loadPage("mybigdream.html");
     });
@@ -600,7 +573,7 @@ myApp.onPageInit('pilihBigDream', function (page) {
         else
         {
         	myApp.alert("Isi My Big Dream Terlebih Dahulu","Error");
-        	mainView.router.back({url: 'pilihBigDream.html',force: true,ignoreCache: true});
+        	mainView.router.back({url: 'pilihBigDream.html',force: true});
         }
         
     });
@@ -610,7 +583,7 @@ myApp.onPageInit('pilihBigDream', function (page) {
         else
         {
         	myApp.alert("Isi My Life List Terlebih Dahulu","Error");
-        	mainView.router.back({url: 'pilihBigDream.html',force: true,ignoreCache: true});
+        	mainView.router.back({url: 'pilihBigDream.html',force: true});
         }
         
     });
