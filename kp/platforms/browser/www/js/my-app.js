@@ -132,6 +132,7 @@ function disableEnableBtn(ids) {
 }
 
 myApp.onPageInit('index', function (page) {
+    myApp.hideNavbar($$('.navbar'));
 
     $$('#myBigDreamSide').html(judulModul[0]);
     $$('#myLifeListSide').html(judulModul[1]);
