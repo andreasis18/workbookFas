@@ -1,0 +1,11 @@
+{
+  "background_color": "#FFF",
+  "display": "standalone",
+  "name": "Workbook GPB",
+  "short_name": "Workbook GPB",
+  "version": "id.ac.ubaya.gpb",
+  "description": "A basic Framework7 template for PhoneGap.",
+  "author": "Apache Cordova Team",
+  "icons": [],
+  "start_url": "index.html"
+}

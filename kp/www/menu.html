@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+              -->
+              <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+
+              <!-- Required meta tags-->
+              <meta charset="utf-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+              <meta name="apple-mobile-web-app-capable" content="yes">
+              <meta name="apple-mobile-web-app-status-bar-style" content="black">
+              <meta name="format-detection" content="telephone=no">
+              <meta name="msapplication-tap-highlight" content="no">
+              <!-- Your app title -->
+              <title>My App</title>
+
+    <!-- This template defaults to the iOS CSS theme. To support both iOS and material design themes, see the Framework7 Tutorial at the link below:
+        http://www.idangero.us/framework7/tutorials/maintain-both-ios-and-material-themes-in-single-app.html
+      -->
+      <link rel="stylesheet" href="lib/framework7/css/framework7.ios.min.css">
+      <link rel="stylesheet" href="lib/framework7/css/framework7.ios.colors.min.css">
+      <link rel="stylesheet" href="css/styles.css">
+    </head>
+
+    <body>
+      <!-- Status bar overlay for full screen mode (PhoneGap) -->
+      <div class="statusbar-overlay"></div>
+
+      <!-- Views -->
+      <div class="views">
+        <!-- Your main view, should have "view-main" class -->
+        <div class="view view-main">
+          <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
+          <div class="pages navbar-through toolbar-through">
+            <!-- Page, "data-page" contains page name -->
+            <div data-page="menu" class="page no-swipeback">
+              <!-- Scrollable page content -->
+              <div class="page-content">
+                <p><a class="open-panel" href="#" data-panel="left">Open Left Panel</a></p>
+                <div class="center sliding">
+                  <div class="content-block-title" style="text-align:center;"></div>
+                  <div class="swiper-container swiper-1">
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-wrapper"></div>
+                  </div>
+
+                  <div class="card facebook-card">
+                    <div class="card-content">
+                      <div class="card-content-inner">
+                        <p style="text-align:center"><b><font size="5">My Big Dream</font></b></p>
+                        <a href="pilihBigDream.html"><img src="img/bigdream.jpg" width="100%"><a/>
+                      </div>
+                    </div>
+                  </div>   
+                  <div class="card facebook-card">
+                    <div class="card-content">
+                      <div class="card-content-inner">
+                        <p style="text-align:center"><b><font size="5">Kisah Entong</font></b></p>
+                        <a href="pilihEntong.html"><img src="img/entong.jpg" width="100%"></a>
+                      </div>
+                    </div>
+                  </div> 
+                  <div class="card facebook-card">
+                    <div class="card-content">
+                      <div class="card-content-inner">
+                        <p style="text-align:center"><b><font size="5">Manajemen Emosi</font></b></p>
+                        <a href="pilihManajemenEmosi.html"><img src="img/manajemenemosi.jpg" width="100%"></a>
+                      </div>
+                    </div>
+                  </div> 
+                  <div class="card facebook-card">
+                    <div class="card-content">
+                      <div class="card-content-inner">
+                        <p style="text-align:center"><b><font size="5">Refleksi Mini Project</font></b></p>
+                        <a href="refleksiMini.html"><img src="img/refleksi.jpg" width="100%"></a>
+                      </div>
+                    </div>
+                  </div> 
+                  <div class="card facebook-card">
+                    <div class="card-content">
+                      <div class="card-content-inner">
+                        <p style="text-align:center"><b><font size="5">Fishbone</font></b></p>
+                        <a href=# id="fishbone"><img src="img/fishbone1.jpg" width="100%">
+                      </div>
+                    </div>
+                  </div> 
+
+                </div> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  <script type="text/javascript" src="cordova.js"></script>
+  <script type="text/javascript" src="js/framework7.min.js"></script>
+  <script type="text/javascript" src="js/my-app.js"></script>
+</body>
+
+</html>
