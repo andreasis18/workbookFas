@@ -11,8 +11,8 @@ var myApp = new Framework7({
 
 // If we need to use custom DOM library, let's save it to $$ variable:
 var $$ = Dom7;
-var directory= 'http://localhost/kp/server/projectkp.php';
-//var directory='http://admingpb.000webhostapp.com/projectkp.php'; //tmpat php aplikasi
+//var directory= 'http://localhost/kp/server/projectkp.php';
+var directory='http://admingpb.000webhostapp.com/projectkp.php'; //tmpat php aplikasi
 
 // Add view
 var mainView = myApp.addView('.view-main', {
@@ -63,7 +63,11 @@ myApp.onPageInit('index', function (page) {
             if(JSON.parse(localStorage.getItem("jabatan"))=='fasilitator')
                 mainView.router.loadPage('pilihGelombangFasilitator.html');
             else if(JSON.parse(localStorage.getItem("jabatan"))=='mahasiswa')
-                mainView.router.loadPage('menu.html');            
+            {
+                localStorage.removeItem('username');
+                localStorage.removeItem('jabatan');   
+                myApp.hideNavbar($$('.navbar'));
+            }
         }
         else{
             myApp.hideNavbar($$('.navbar'));
@@ -148,6 +152,9 @@ myApp.onPageInit('pilihMahasiswaFasilitator', function (page) {
 
 myApp.onPageInit('halamanMahasiswaFasilitator', function (page) {
     var nrp = page.query.idNrp;
+    $$.post(directory,{opsi:"getComment", id:nrp},function(data){
+        $$('#comments').html(data);
+    });
     $$.post(directory,{opsi:"getDetailMhs", id:nrp},function(data){
         $$('#statusMahasiswa').html(data);
     });
