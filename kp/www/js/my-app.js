@@ -23,7 +23,6 @@ var mainView = myApp.addView('.view-main', {
 
 function hapusLocalAll(){
     localStorage.removeItem('userfas');
-    localStorage.removeItem('password');
 } //buat hapus smua local storage
 
 
@@ -46,7 +45,6 @@ myApp.onPageInit('index', function (page) {
             if(data=="berhasil")
             {
                 mainView.router.loadPage('pilihGelombangFasilitator.html');
-                localStorage.setItem("password",JSON.stringify(password));
                 localStorage.setItem("userfas",JSON.stringify(username.value));
             }
             else if(data=="kadaluarsa")
@@ -82,7 +80,7 @@ myApp.onPageInit('pilihGelombangFasilitator', function (page) {
         }
         else{
             myApp.alert("Maaf status fasilitator anda sudah di non-aktifkan");
-            localStorage.removeItem('userfas');
+            hapusLocalAll();
             mainView.router.back({url: 'index.html',force: true,ignoreCache: true});       
         }
     });
