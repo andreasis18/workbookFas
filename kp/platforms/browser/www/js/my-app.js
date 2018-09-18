@@ -22,52 +22,16 @@ var mainView = myApp.addView('.view-main', {
 
 
 function hapusLocalAll(){
-    localStorage.removeItem('username');
-    localStorage.removeItem('jabatan');
-    localStorage.removeItem('tenda');
-    localStorage.removeItem('bus');
-    localStorage.removeItem('nama_kelompok');
-    localStorage.removeItem('nama_mhs');
-	localStorage.removeItem('nrp_mhs');
+    localStorage.removeItem('userfas');
+    localStorage.removeItem('password');
 } //buat hapus smua local storage
-
-var tenda=0;
-var bus=0;
-var nama_kelompok="";
-var nama_mhs="";
-var nrp_mhs="";
-
-
-
-var judulModul=[["MY BIG DREAM"],
-["MY LIFE LIST"],
-["OUTDOOR ACTIVITY"],
-["STUDI KASUS"],
-["PENGALAMAN PRIBADI"],
-["PERSONAL DEVELOPMENT PLAN"],
-["FISHBONE"],
-["KISAH ENTONG"],
-["LESSON LEARNED"],
-["REFLEKSI MINI PROJECT"]
-];
-
-var nrp="";
-var password="";
 
 
 myApp.onPageInit('index', function (page) {
-
     if(page='index'){
-        if(JSON.parse(localStorage.getItem("username"))&&JSON.parse(localStorage.getItem("jabatan")))
+        if(JSON.parse(localStorage.getItem("userfas")))
         {
-            if(JSON.parse(localStorage.getItem("jabatan"))=='fasilitator')
-                mainView.router.loadPage('pilihGelombangFasilitator.html');
-            else if(JSON.parse(localStorage.getItem("jabatan"))=='mahasiswa')
-            {
-                localStorage.removeItem('username');
-                localStorage.removeItem('jabatan');   
-                myApp.hideNavbar($$('.navbar'));
-            }
+            mainView.router.loadPage('pilihGelombangFasilitator.html');
         }
         else{
             myApp.hideNavbar($$('.navbar'));
@@ -75,7 +39,6 @@ myApp.onPageInit('index', function (page) {
     }
 
     $$('#btnMasuk').on('click',function(){
-    	var pilihan = document.getElementById("jabatan");
     	password = document.getElementById("password").value;
     	var username = document.getElementById("username");
 
@@ -84,8 +47,7 @@ myApp.onPageInit('index', function (page) {
             {
                 mainView.router.loadPage('pilihGelombangFasilitator.html');
                 localStorage.setItem("password",JSON.stringify(password));
-                localStorage.setItem("username",JSON.stringify(username.value));
-                localStorage.setItem("jabatan",JSON.stringify('fasilitator'));
+                localStorage.setItem("userfas",JSON.stringify(username.value));
             }
             else if(data=="kadaluarsa")
             {
@@ -104,7 +66,7 @@ myApp.onPageInit('index', function (page) {
 $$(document).on('deviceready', function() {
     console.log("Device is ready!");
     myApp.onPageBack('menu',function(asd){
-        if(JSON.parse(localStorage.getItem("username"))&&JSON.parse(localStorage.getItem("jabatan"))){
+        if(JSON.parse(localStorage.getItem("userfas"))){
             console.log("heahahwe");
             navigator.app.exitApp();   
         }
@@ -113,15 +75,14 @@ $$(document).on('deviceready', function() {
 
 myApp.onPageInit('pilihGelombangFasilitator', function (page) {
     var gelombang = document.getElementById('gelombang');
-    var uname = localStorage.getItem("username");
+    var uname = localStorage.getItem("userfas");
     $$.post(directory,{opsi:"getGelombangPadaPeriodeAktif", username:uname},function(data){
         if(data!="gagal"){
             $$('#pilihGelombang').html(data);   
         }
         else{
             myApp.alert("Maaf status fasilitator anda sudah di non-aktifkan");
-            localStorage.removeItem('username');
-            localStorage.removeItem('jabatan');
+            localStorage.removeItem('userfas');
             mainView.router.back({url: 'index.html',force: true,ignoreCache: true});       
         }
     });
@@ -129,8 +90,7 @@ myApp.onPageInit('pilihGelombangFasilitator', function (page) {
     
     $$('#btnLogoutFasilitator').on('click', function () 
     {
-        localStorage.removeItem('username');
-        localStorage.removeItem('jabatan');
+        hapusLocalAll();
         mainView.router.back({url: 'index.html',force: true,ignoreCache: true});
     });
     
