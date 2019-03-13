@@ -117,13 +117,6 @@ myApp.onPageInit('halamanMahasiswaFasilitator', function (page) {
         $$('#statusMahasiswa').html(data);
     });
 
-    $$('#insertComment').on('click', function () {
-        var komen=document.getElementById("comments"); 
-        $$.post(directory,{opsi:'insertCommentMhs', idNrp:nrp, komens: komen.value}, function(data){
-            console.log(data);
-            myApp.alert("Comment berhasil disimpan.");
-        });
-    });    
 })
 
 myApp.onPageInit('detailJawabMahasiswaFasilitator', function (page) {
@@ -133,4 +126,12 @@ myApp.onPageInit('detailJawabMahasiswaFasilitator', function (page) {
     $$.post(directory,{opsi:"getDetailJawabanMhs", ids:nrp, modul:submodul},function(data){
         $$('#blockAnswer').html(data);
     });
+
+    $$('#insertComment').on('click', function () {
+        var komen=document.getElementById("comments"); 
+        $$.post(directory,{opsi:'insertCommentMhs', idNrp:nrp, moduk:submodul, komens: komen.value}, function(data){
+            console.log(data);
+            myApp.alert("Comment berhasil disimpan.");
+        });
+    });    
 })
