@@ -28,3 +28,6 @@
 html{
   touch-action: manipulation; 
 }
+.button-fill {
+  width: 100%;
+}

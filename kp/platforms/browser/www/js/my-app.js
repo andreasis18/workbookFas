@@ -23,7 +23,6 @@ var mainView = myApp.addView('.view-main', {
 
 function hapusLocalAll(){
     localStorage.removeItem('userfas');
-    localStorage.removeItem('password');
 } //buat hapus smua local storage
 
 
@@ -46,7 +45,6 @@ myApp.onPageInit('index', function (page) {
             if(data=="berhasil")
             {
                 mainView.router.loadPage('pilihGelombangFasilitator.html');
-                localStorage.setItem("password",JSON.stringify(password));
                 localStorage.setItem("userfas",JSON.stringify(username.value));
             }
             else if(data=="kadaluarsa")
@@ -82,7 +80,7 @@ myApp.onPageInit('pilihGelombangFasilitator', function (page) {
         }
         else{
             myApp.alert("Maaf status fasilitator anda sudah di non-aktifkan");
-            localStorage.removeItem('userfas');
+            hapusLocalAll();
             mainView.router.back({url: 'index.html',force: true,ignoreCache: true});       
         }
     });
@@ -112,20 +110,10 @@ myApp.onPageInit('pilihMahasiswaFasilitator', function (page) {
 
 myApp.onPageInit('halamanMahasiswaFasilitator', function (page) {
     var nrp = page.query.idNrp;
-    $$.post(directory,{opsi:"getComment", id:nrp},function(data){
-        $$('#comments').html(data);
-    });
     $$.post(directory,{opsi:"getDetailMhs", id:nrp},function(data){
         $$('#statusMahasiswa').html(data);
     });
 
-    $$('#insertComment').on('click', function () {
-        var komen=document.getElementById("comments"); 
-        $$.post(directory,{opsi:'insertCommentMhs', idNrp:nrp, komens: komen.value}, function(data){
-            console.log(data);
-            myApp.alert("Comment berhasil disimpan.");
-        });
-    });    
 })
 
 myApp.onPageInit('detailJawabMahasiswaFasilitator', function (page) {
@@ -135,4 +123,31 @@ myApp.onPageInit('detailJawabMahasiswaFasilitator', function (page) {
     $$.post(directory,{opsi:"getDetailJawabanMhs", ids:nrp, modul:submodul},function(data){
         $$('#blockAnswer').html(data);
     });
+
+    $$.post(directory,{opsi:'getComment', id:nrp, modul:submodul}, function(data){
+        $$('#comments').html(data); 
+    });
+
+    $$('#insertComment').on('click', function () {
+        var komen=document.getElementById("comments"); 
+        $$.post(directory,{opsi:'insertCommentMhs', idNrp:nrp, modul:submodul, komens: komen.value}, function(data){
+            console.log(data);
+            myApp.alert("Comment berhasil disimpan.");
+            mainView.router.back();
+        });
+    });    
+
+    $$('#verification').on('click', function () {
+        myApp.confirm('Apakah jawaban mahasiswa sudah benar?', 'Verifikasi Jawaban', function () {
+            $$.post(directory,{opsi:'verifikasiJawaban', idNrp:nrp, modul:submodul}, function(data){
+                console.log(data);
+                myApp.alert("Jawaban berhasil diverifikasi");
+                mainView.router.back();
+            });   
+        }, function () {
+
+        });
+    });    
+
+
 })
