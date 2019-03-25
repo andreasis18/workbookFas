@@ -30,7 +30,8 @@ myApp.onPageInit('index', function (page) {
     if(page='index'){
         if(JSON.parse(localStorage.getItem("userfas")))
         {
-            mainView.router.loadPage('pilihGelombangFasilitator.html');
+            //mainView.router.loadPage('pilihKelompokFasilitator.html');
+            mainView.router.loadPage('pilihMahasiswaFasilitator.html');
         }
         else{
             myApp.hideNavbar($$('.navbar'));
@@ -42,10 +43,9 @@ myApp.onPageInit('index', function (page) {
     	var username = document.getElementById("username");
 
         $$.post(directory,{opsi:"loginFasilitator", username:username.value,password:password},function(data){
-            if(data=="berhasil")
+            if(data=="gagal")
             {
-                mainView.router.loadPage('pilihGelombangFasilitator.html');
-                localStorage.setItem("userfas",JSON.stringify(username.value));
+                myApp.alert("Login Gagal, Username atau Password salah","Error");
             }
             else if(data=="kadaluarsa")
             {
@@ -53,7 +53,9 @@ myApp.onPageInit('index', function (page) {
             }
             else
             {
-                myApp.alert("Login Gagal, Username atau Password salah","Error");
+                localStorage.setItem("userfas",JSON.stringify(data));
+                //mainView.router.loadPage('pilihKelompokFasilitator.html');
+                mainView.router.loadPage('pilihMahasiswaFasilitator.html');
             }    
         });
     	
@@ -71,40 +73,33 @@ $$(document).on('deviceready', function() {
     });
 });
 
-myApp.onPageInit('pilihGelombangFasilitator', function (page) {
-    var gelombang = document.getElementById('gelombang');
-    var uname = localStorage.getItem("userfas");
-    $$.post(directory,{opsi:"getGelombangPadaPeriodeAktif", username:uname},function(data){
-        if(data!="gagal"){
-            $$('#pilihGelombang').html(data);   
-        }
-        else{
-            myApp.alert("Maaf status fasilitator anda sudah di non-aktifkan");
-            hapusLocalAll();
-            mainView.router.back({url: 'index.html',force: true,ignoreCache: true});       
-        }
+myApp.onPageInit('pilihKelompokFasilitator', function (page) {
+    console.log(localStorage.getItem("userfas"));
+    $$.post(directory,{opsi:"getKelompokDariGelombang", id:localStorage.getItem("userfas")},function(data){
+        console.log(data);
+        $$('#pilihKelompok').html(data);
     });
-
-    
     $$('#btnLogoutFasilitator').on('click', function () 
     {
         hapusLocalAll();
         mainView.router.back({url: 'index.html',force: true,ignoreCache: true});
     });
-    
-})
-
-myApp.onPageInit('pilihKelompokFasilitator', function (page) {
-    var idGelombang = page.query.idGelombang;
-    $$.post(directory,{opsi:"getKelompokDariGelombang", id:idGelombang},function(data){
-        $$('#pilihKelompok').html(data);
-    });
 })
 
 myApp.onPageInit('pilihMahasiswaFasilitator', function (page) {
-    var idKelompok = page.query.idKelompok;
-    $$.post(directory,{opsi:"getMahasiswaDariKelompok", id:idKelompok},function(data){
+    // var idKelompok = page.query.idKelompok;
+    // // $$.post(directory,{opsi:"getMahasiswaDariKelompok",id:idKelompok},function(data){
+    // //     console.log(idKelompok);
+    // //     $$('#pilihMahasiswa').html(data);
+    // // });
+    console.log(localStorage.getItem("userfas"));
+     $$.post(directory,{opsi:"getMahasiswaDariKelompok",id:localStorage.getItem("userfas")},function(data){
         $$('#pilihMahasiswa').html(data);
+    });
+    $$('#btnLogoutFasilitator').on('click', function () 
+    {
+        hapusLocalAll();
+        mainView.router.back({url: 'index.html',force: true,ignoreCache: true});
     });
 })
 
@@ -140,9 +135,8 @@ myApp.onPageInit('detailJawabMahasiswaFasilitator', function (page) {
     $$('#verification').on('click', function () {
         myApp.confirm('Apakah jawaban mahasiswa sudah benar?', 'Verifikasi Jawaban', function () {
             $$.post(directory,{opsi:'verifikasiJawaban', idNrp:nrp, modul:submodul}, function(data){
-                console.log(data);
                 myApp.alert("Jawaban berhasil diverifikasi");
-                mainView.router.back();
+                mainView.router.back({url: 'halamanMahasiswaFasilitator.html',force: true,ignoreCache: true});
             });   
         }, function () {
 
