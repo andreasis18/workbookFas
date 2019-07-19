@@ -30,8 +30,8 @@ myApp.onPageInit('index', function (page) {
     if(page='index'){
         if(JSON.parse(localStorage.getItem("userfas")))
         {
-            //mainView.router.loadPage('pilihKelompokFasilitator.html');
-            mainView.router.loadPage('pilihMahasiswaFasilitator.html');
+            mainView.router.loadPage('pilihKelompokFasilitator.html');
+            //mainView.router.loadPage('pilihMahasiswaFasilitator.html');
         }
         else{
             myApp.hideNavbar($$('.navbar'));
@@ -54,8 +54,8 @@ myApp.onPageInit('index', function (page) {
             else
             {
                 localStorage.setItem("userfas",JSON.stringify(data));
-                //mainView.router.loadPage('pilihKelompokFasilitator.html');
-                mainView.router.loadPage('pilihMahasiswaFasilitator.html');
+                mainView.router.loadPage('pilihKelompokFasilitator.html');
+                //mainView.router.loadPage('pilihMahasiswaFasilitator.html');
             }    
         });
     	
@@ -87,15 +87,15 @@ myApp.onPageInit('pilihKelompokFasilitator', function (page) {
 })
 
 myApp.onPageInit('pilihMahasiswaFasilitator', function (page) {
-    // var idKelompok = page.query.idKelompok;
-    // // $$.post(directory,{opsi:"getMahasiswaDariKelompok",id:idKelompok},function(data){
-    // //     console.log(idKelompok);
-    // //     $$('#pilihMahasiswa').html(data);
-    // // });
-    console.log(localStorage.getItem("userfas"));
-     $$.post(directory,{opsi:"getMahasiswaDariKelompok",id:localStorage.getItem("userfas")},function(data){
+    var idKelompok = page.query.idKelompok;
+    $$.post(directory,{opsi:"getMahasiswaDariKelompok",id:idKelompok},function(data){
+        console.log(idKelompok);
         $$('#pilihMahasiswa').html(data);
     });
+    // console.log(localStorage.getItem("userfas"));
+    //  $$.post(directory,{opsi:"getMahasiswaDariKelompok",id:localStorage.getItem("userfas")},function(data){
+    //     $$('#pilihMahasiswa').html(data);
+    // });
     $$('#btnLogoutFasilitator').on('click', function () 
     {
         hapusLocalAll();
