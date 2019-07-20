@@ -79,6 +79,18 @@ myApp.onPageInit('pilihKelompokFasilitator', function (page) {
         console.log(data);
         $$('#pilihKelompok').html(data);
     });
+    $$('#btnPasswordFasilitator').on('click', function () 
+    {
+        myApp.prompt('', 'Change Password', function (value) {
+            if(value!='')
+            {
+                $$.post(directory,{opsi:'changePasswordFas',id:localStorage.getItem("userfas"),pass:value}, function(data){
+                    console.log(data);
+                    mainView.router.refreshPage();
+                });   
+            }
+        });
+    });
     $$('#btnLogoutFasilitator').on('click', function () 
     {
         hapusLocalAll();
