@@ -148,7 +148,7 @@ myApp.onPageInit('detailJawabMahasiswaFasilitator', function (page) {
         myApp.confirm('Apakah jawaban mahasiswa sudah benar?', 'Verifikasi Jawaban', function () {
             $$.post(directory,{opsi:'verifikasiJawaban', idNrp:nrp, modul:submodul}, function(data){
                 myApp.alert("Jawaban berhasil diverifikasi");
-                mainView.router.back({url: 'halamanMahasiswaFasilitator.html',force: true,ignoreCache: true});
+                mainView.router.back({url: 'halamanMahasiswaFasilitator.html?idNrp='+nrp,force: true,ignoreCache: true});
             });   
         }, function () {
 
