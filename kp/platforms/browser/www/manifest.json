@@ -1,8 +1,8 @@
 {
   "background_color": "#FFF",
   "display": "standalone",
-  "name": "Workbook GPB Fasilitator",
-  "short_name": "Workbook GPB Fasilitator",
+  "name": "GPB Fasilitator",
+  "short_name": "GPB Fasilitator",
   "version": "id.ac.ubaya.gpbFas",
   "description": "A basic Framework7 template for PhoneGap.",
   "author": "Apache Cordova Team",

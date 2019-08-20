@@ -66,17 +66,12 @@ myApp.onPageInit('index', function (page) {
 $$(document).on('deviceready', function() {
     console.log("Device is ready!");
     myApp.onPageBack('menu',function(asd){
-        if(JSON.parse(localStorage.getItem("userfas"))){
-            console.log("heahahwe");
-            navigator.app.exitApp();   
-        }
+        navigator.app.exitApp();   
     });
 });
 
 myApp.onPageInit('pilihKelompokFasilitator', function (page) {
-    console.log(localStorage.getItem("userfas"));
     $$.post(directory,{opsi:"getKelompokDariGelombang", id:localStorage.getItem("userfas")},function(data){
-        console.log(data);
         $$('#pilihKelompok').html(data);
     });
     $$('#btnPasswordFasilitator').on('click', function () 
@@ -119,8 +114,24 @@ myApp.onPageInit('halamanMahasiswaFasilitator', function (page) {
     var nrp = page.query.idNrp;
     $$.post(directory,{opsi:"getDetailMhs", id:nrp},function(data){
         $$('#statusMahasiswa').html(data);
+
+        $$('.overlay, .overlay-message').hide();
+    });
+    $$.post(directory,{opsi:'getCommentKhusus', id:nrp}, function(data){
+        $$('#comments').html(data); 
     });
 
+    $$('#insertComment').on('click', function () {
+        myApp.confirm('Beri mahasiswa komentar?', 'Verifikasi Catatan', function () {
+            var komen=document.getElementById("comments"); 
+            $$.post(directory,{opsi:'insertCommentKhusus', idNrp:nrp, komens: komen.value}, function(data){
+                console.log(data);
+                myApp.alert("Comment berhasil disimpan.");
+            });
+        }, function () {
+
+        });
+    });    
 })
 
 myApp.onPageInit('detailJawabMahasiswaFasilitator', function (page) {
@@ -129,6 +140,7 @@ myApp.onPageInit('detailJawabMahasiswaFasilitator', function (page) {
     
     $$.post(directory,{opsi:"getDetailJawabanMhs", ids:nrp, modul:submodul},function(data){
         $$('#blockAnswer').html(data);
+        $$('.overlay, .overlay-message').hide();
     });
 
     $$.post(directory,{opsi:'getComment', id:nrp, modul:submodul}, function(data){

@@ -31,3 +31,26 @@ html{
 .button-fill {
   width: 100%;
 }
+
+.overlay {
+    position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    background-color:#fff;
+    opacity:0.8;
+    z-index:1001;
+}
+.overlay-message{
+    position: fixed;
+    top:45%;
+    left:25%;
+    width:50%;
+    height:auto;
+    background-color:#99ccff;
+    opacity:1;
+    z-index:1002;
+    text-align: center;
+    font-size: 24px;
+}
