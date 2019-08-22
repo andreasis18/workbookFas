@@ -138,22 +138,33 @@ myApp.onPageInit('detailJawabMahasiswaFasilitator', function (page) {
     var nrp = page.query.idNrp;
     var submodul = page.query.id_Submodul;
     
+    
     $$.post(directory,{opsi:"getDetailJawabanMhs", ids:nrp, modul:submodul},function(data){
         $$('#blockAnswer').html(data);
-        $$('.overlay, .overlay-message').hide();
     });
 
     $$.post(directory,{opsi:'getComment', id:nrp, modul:submodul}, function(data){
         $$('#comments').html(data); 
+        $$('.overlay, .overlay-message').hide();
     });
 
-    $$('#insertComment').on('click', function () {
+    $$('.insertComment').on('click', function () {
         var komen=document.getElementById("comments"); 
-        $$.post(directory,{opsi:'insertCommentMhs', idNrp:nrp, modul:submodul, komens: komen.value}, function(data){
-            console.log(data);
-            myApp.alert("Comment berhasil disimpan.");
-            mainView.router.back();
-        });
+        var komentar = komen.value;
+        if(komentar!=""){
+            $$('.overlay, .overlay-message').show();
+            $$.post(directory,{opsi:'insertCommentMhs', idNrp:nrp, modul:submodul, komens:komentar}, function(data){
+                myApp.alert("Comment berhasil disimpan.");
+                mainView.router.back({url: 'halamanMahasiswaFasilitator.html?idNrp='+nrp,force: true,ignoreCache: true});
+            });   
+            // $$.post(directory,{opsi:'verifikasiJawaban', idNrp:nrp, modul:submodul}, function(data){
+            //     myApp.alert("Jawaban berhasil diverifikasi");
+            //     mainView.router.back({url: 'halamanMahasiswaFasilitator.html?idNrp='+nrp,force: true,ignoreCache: true});
+            // });   
+        }
+        else{
+            alert("Tolong isi Komentar");
+        }
     });    
 
     $$('#verification').on('click', function () {
