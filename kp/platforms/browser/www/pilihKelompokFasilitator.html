@@ -59,8 +59,12 @@
               <div class="center sliding">Pilih Kelompok</div>
              
               <div class="right">
-                <a href="#" class="button button-raised button-fill color-yellow" id="btnPasswordFasilitator">Change Password</a>
-                <a href="#" class="button button-raised button-fill color-red" id="btnLogoutFasilitator">Logout</a>
+                <a href="#" class="button button-raised button-fill color-yellow admin" id="btnPasswordFasilitator">Change Password</a>
+                <a href="#" class="button button-raised button-fill color-red admin" id="btnLogoutFasilitator">Logout</a>
+                <a href="#" class="button button-raised button-fill color-yellow adminShow" id="btnSearchAdmin">Search NRP</a>
+                <div class="right adminShow">
+                  <a href="#" class="button back">Back</a>
+                </div>
               </div>
             </div>
           </div>
@@ -71,6 +75,10 @@
               <!-- Scrollable page content -->
               <div class="page-content">
                 <div class="content-block">
+                        <div class="overlay"></div>
+                        <div class="overlay-message">
+                            <p>LOADING...</p>
+                        </div>
                   <div class="center sliding">
                     <div class="list-block">
                       <ul id="pilihKelompok">

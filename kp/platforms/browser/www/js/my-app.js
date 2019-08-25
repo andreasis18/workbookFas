@@ -23,6 +23,7 @@ var mainView = myApp.addView('.view-main', {
 
 function hapusLocalAll(){
     localStorage.removeItem('userfas');
+    localStorage.removeItem('userAdmin');
 } //buat hapus smua local storage
 
 
@@ -47,9 +48,10 @@ myApp.onPageInit('index', function (page) {
             {
                 myApp.alert("Login Gagal, Username atau Password salah","Error");
             }
-            else if(data=="kadaluarsa")
+            else if(data=="admin")
             {
-                myApp.alert("Login Gagal, Data fasilitator sudah nonaktif", "Error");
+                localStorage.setItem("userAdmin",JSON.stringify("admin"));
+                mainView.router.loadPage('pilihGelombangAdmin.html');
             }
             else
             {
@@ -70,9 +72,69 @@ $$(document).on('deviceready', function() {
     });
 });
 
-myApp.onPageInit('pilihKelompokFasilitator', function (page) {
-    $$.post(directory,{opsi:"getKelompokDariGelombang", id:localStorage.getItem("userfas")},function(data){
+myApp.onPageInit('pilihGelombangAdmin', function (page) {
+
+    $$.post(directory,{opsi:"getGelombang"},function(data){
         $$('#pilihKelompok').html(data);
+        $$('.overlay, .overlay-message').hide();
+    });
+    $$('#btnSearchAdmin').on('click', function () 
+    {
+        myApp.prompt('', 'Search NRP', function (value) {
+            if(value!='')
+            {
+                $$.post(directory,{opsi:'searchNRP',nrp:value}, function(data){
+                    console.log(data);
+                    if(data!="gagal"){
+                        mainView.router.loadPage('halamanMahasiswaFasilitator.html?idNrp='+value);
+                    }
+                    else{
+                        myApp.alert("NRP tidak ditemukan, Maaf");
+                    }
+                });   
+            }
+        });
+    });
+    $$('#btnLogoutFasilitator').on('click', function () 
+    {
+        hapusLocalAll();
+        mainView.router.back({url: 'index.html',force: true,ignoreCache: true});
+    });
+})
+
+myApp.onPageInit('pilihKelompokFasilitator', function (page) {
+    if(localStorage.getItem("userAdmin")){
+        $$(".admin").hide();
+        var idGel = page.query.idGelombang;
+        $$.post(directory,{opsi:"getKelompokDariGelombang", id:idGel},function(data){
+            $$('#pilihKelompok').html(data);
+        $$('.overlay, .overlay-message').hide();
+        });       
+    }
+    else{
+        $$(".adminShow").hide();
+        $$.post(directory,{opsi:"getKelompok", id:localStorage.getItem("userfas")},function(data){
+            $$('#pilihKelompok').html(data);
+        $$('.overlay, .overlay-message').hide();
+        });    
+    }
+    
+    $$('#btnSearchAdmin').on('click', function () 
+    {
+        myApp.prompt('', 'Search NRP', function (value) {
+            if(value!='')
+            {
+                $$.post(directory,{opsi:'searchNRP',nrp:value}, function(data){
+                    console.log(data);
+                    if(data!="gagal"){
+                        mainView.router.loadPage('halamanMahasiswaFasilitator.html?idNrp='+value);
+                    }
+                    else{
+                        myApp.alert("NRP tidak ditemukan, Maaf");
+                    }
+                });   
+            }
+        });
     });
     $$('#btnPasswordFasilitator').on('click', function () 
     {
@@ -98,11 +160,15 @@ myApp.onPageInit('pilihMahasiswaFasilitator', function (page) {
     $$.post(directory,{opsi:"getMahasiswaDariKelompok",id:idKelompok},function(data){
         console.log(idKelompok);
         $$('#pilihMahasiswa').html(data);
+        $$('.overlay, .overlay-message').hide();
     });
     // console.log(localStorage.getItem("userfas"));
     //  $$.post(directory,{opsi:"getMahasiswaDariKelompok",id:localStorage.getItem("userfas")},function(data){
     //     $$('#pilihMahasiswa').html(data);
     // });
+    if(localStorage.getItem("userAdmin")){
+        $$(".admin").hide();
+    }
     $$('#btnLogoutFasilitator').on('click', function () 
     {
         hapusLocalAll();
@@ -112,11 +178,23 @@ myApp.onPageInit('pilihMahasiswaFasilitator', function (page) {
 
 myApp.onPageInit('halamanMahasiswaFasilitator', function (page) {
     var nrp = page.query.idNrp;
-    $$.post(directory,{opsi:"getDetailMhs", id:nrp},function(data){
-        $$('#statusMahasiswa').html(data);
+    if(localStorage.getItem("userAdmin")){
+        $$(".admin").hide();
+        document.getElementById("comments").disabled=true;
 
-        $$('.overlay, .overlay-message').hide();
-    });
+        $$.post(directory,{opsi:"getDetailMhsAdmin", id:nrp},function(data){
+            $$('#statusMahasiswa').html(data);
+
+            $$('.overlay, .overlay-message').hide();
+        });
+    }
+    else{
+        $$.post(directory,{opsi:"getDetailMhs", id:nrp},function(data){
+            $$('#statusMahasiswa').html(data);
+
+            $$('.overlay, .overlay-message').hide();
+        });   
+    }
     $$.post(directory,{opsi:'getCommentKhusus', id:nrp}, function(data){
         $$('#comments').html(data); 
     });
@@ -139,12 +217,15 @@ myApp.onPageInit('detailJawabMahasiswaFasilitator', function (page) {
     var submodul = page.query.id_Submodul;
     
     
+    if(localStorage.getItem("userAdmin")){
+        $$(".admin").hide();
+    }
     $$.post(directory,{opsi:"getDetailJawabanMhs", ids:nrp, modul:submodul},function(data){
         $$('#blockAnswer').html(data);
     });
 
     $$.post(directory,{opsi:'getComment', id:nrp, modul:submodul}, function(data){
-        $$('#comments').html(data); 
+        $$('#comment').html(data); 
         $$('.overlay, .overlay-message').hide();
     });
 
