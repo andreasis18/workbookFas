@@ -195,6 +195,10 @@ myApp.onPageInit('halamanMahasiswaFasilitator', function (page) {
             $$('.overlay, .overlay-message').hide();
         });   
     }
+
+    $$.post(directory,{opsi:"getNamaMhs", ids:nrp},function(data){
+        $$('#blockNama').html(data);
+    });
     $$.post(directory,{opsi:'getCommentKhusus', id:nrp}, function(data){
         $$('#comments').html(data); 
     });
