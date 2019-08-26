@@ -230,7 +230,7 @@ myApp.onPageInit('detailJawabMahasiswaFasilitator', function (page) {
     });
 
     $$('.insertComment').on('click', function () {
-        var komen=document.getElementById("comments"); 
+        var komen=document.getElementById("comment"); 
         var komentar = komen.value;
         if(komentar!=""){
             $$('.overlay, .overlay-message').show();
